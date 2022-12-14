@@ -1,22 +1,6 @@
-// testshapes demo for Adafruit RGBmatrixPanel library.
-// Demonstrates the drawing abilities of the RGBmatrixPanel library.
-// For 16x32 RGB LED matrix:
-// http://www.adafruit.com/products/420
-// Written by Limor Fried/Ladyada & Phil Burgess/PaintYourDragon
-// for Adafruit Industries.
-// BSD license, all text above must be included in any redistribution.
+//Written by Samir Sanchez Tejada and Julia Dudlak
 #include <RGBmatrixPanel.h>
-// Most of the signal pins are configurable, but the CLK pin has some
-// special constraints.  On 8-bit AVR boards it must be on PORTB...
-// Pin 8 works on the Arduino Uno & compatibles (e.g. Adafruit Metro),
-// Pin 11 works on the Arduino Mega.  On 32-bit SAMD boards it must be
-// on the same PORT as the RGB data pins (D2-D7)...
-// Pin 8 works on the Adafruit Metro M0 or Arduino Zero,
-// Pin A4 works on the Adafruit Metro M4 (if using the Adafruit RGB
-// Matrix Shield, cut trace between CLK pads and run a wire to A4).
-#define CLK  8   // USE THIS ON ARDUINO UNO, ADAFRUIT METRO M0, etc.
-//#define CLK A4 // USE THIS ON METRO M4 (not M0)
-//#define CLK 11 // USE THIS ON ARDUINO MEGA
+#define CLK  8   
 #define OE   9
 #define LAT 10
 #define A   A0
@@ -24,15 +8,14 @@
 #define C   A2
 RGBmatrixPanel matrix(A, B, C, CLK, LAT, OE, false);
 const int buttonPin = 13;
-const int buttonPin2 = 11;  // the pin that the pushbutton is attached to
+const int buttonPin2 = 11; 
 const int startButton = 12;
 void setup() {
 pinMode(buttonPin, INPUT);
-// initialize the LED as an output:
 Serial.begin(9600);
-int buttonState1 = 0;        // current state of the button
+int buttonState1 = 0;      
 int lastButtonState = 0;
-int buttonState2 = 0;        // current state of the button
+int buttonState2 = 0;      
 int lastButtonState2 = 0;
 int buttonState3 = 0;
 int lastButtonState3 = 0;
@@ -43,10 +26,8 @@ int count = 0;
 while(count < 20){
  matrix.begin();
 if(count == 0){
-// draw a pixel in white
-matrix.setCursor(1, 0);  // start at top left, with one pixel of spacing
-matrix.setTextSize(0.5);   // size 1 == 8 pixels high
-// print each letter with a rainbow color
+matrix.setCursor(1, 0); //Prints out the intro screen to the game 
+matrix.setTextSize(0.5);   
 matrix.setTextColor(matrix.Color333(0,7,0));
 matrix.print('H');
 matrix.setTextColor(matrix.Color333(0,7,0));
@@ -61,8 +42,8 @@ matrix.setTextColor(matrix.Color333(0,7,0));
 matrix.print('!');
 delay(1000);
 matrix.fillScreen(matrix.Color333(0, 0, 0));
-matrix.setCursor(1, 0);  // start at top left, with one pixel of spacing
-matrix.setTextSize(1);   // size 1 == 8 pixels high
+matrix.setCursor(1, 0); 
+matrix.setTextSize(1);  
 matrix.setTextColor(matrix.Color333(0,7,0));
 matrix.print('L');
 matrix.setTextColor(matrix.Color333(0,7,0));
@@ -86,7 +67,6 @@ matrix.print('D');
 matrix.setTextColor(matrix.Color333(0,7,0));
 delay(1000);
 matrix.fillScreen(matrix.Color333(0, 0, 0));
-// fix the screen with green
 delay(500);
 }
  
@@ -100,150 +80,111 @@ int deincrementer2=0;
 int pipe2height=2;
 int pipe2delay=0;
 int birdheight=8;
-//matrix.drawPixel(3, 8, matrix.Color333(7, 7, 0));
  
-while(digitalRead(startButton) != 1){
-matrix.setCursor(4, 5);  // start at top left, with one pixel of spacing
-matrix.setTextSize(0.3);   // size 1 == 8 pixels high
-// print each letter with a rainbow color
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('H');
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('O');
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('L');
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('D');
-delay(1000);
-matrix.fillScreen(matrix.Color333(0, 0, 0));
-matrix.setCursor(4, 5);  // start at top left, with one pixel of spacing
-matrix.setTextSize(0.3);   // size 1 == 8 pixels high
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('B');
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('L');
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('U');
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('E');
-delay(1000);
-matrix.fillScreen(matrix.Color333(0, 0, 0));
-matrix.setCursor(10, 5);  // start at top left, with one pixel of spacing
-matrix.setTextSize(0.3);   // size 1 == 8 pixels high
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('T');
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('0');
-delay(1000);
-matrix.fillScreen(matrix.Color333(0, 0, 0));
-matrix.setCursor(4, 5);  // start at top left, with one pixel of spacing
-matrix.setTextSize(0.3);   // size 1 == 8 pixels high
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('P');
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('L');
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('A');
-matrix.setTextColor(matrix.Color333(0,0,7));
-matrix.print('Y');
-delay(1000);
-matrix.fillScreen(matrix.Color333(0, 0, 0));
+while(digitalRead(startButton) != 1){//Waits for user input before the game begins
+ matrix.setCursor(4, 5); 
+ matrix.setTextSize(0.3);  
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('H');
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('O');
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('L');
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('D');
+ delay(1000);
+ matrix.fillScreen(matrix.Color333(0, 0, 0));
+ matrix.setCursor(4, 5);  
+ matrix.setTextSize(0.3);
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('B');
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('L');
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('U');
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('E');
+ delay(1000);
+ matrix.fillScreen(matrix.Color333(0, 0, 0));
+ matrix.setCursor(10, 5); 
+ matrix.setTextSize(0.3); 
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('T');
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('O');
+ delay(1000);
+ matrix.fillScreen(matrix.Color333(0, 0, 0));
+ matrix.setCursor(4, 5);  
+ matrix.setTextSize(0.3);  
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('P');
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('L');
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('A');
+ matrix.setTextColor(matrix.Color333(0,0,7));
+ matrix.print('Y');
+ delay(1000);
+ matrix.fillScreen(matrix.Color333(0, 0, 0));
 }
 x=0;
-while(x==0){
+while(x==0){//This starts the game and reads the up and down buttons
 buttonState1 = digitalRead(buttonPin);
 buttonState2 = digitalRead(buttonPin2);
-matrix.drawPixel(3, birdheight, matrix.Color333(7, 7, 0));
-// compare the buttonState to its previous state
+matrix.drawPixel(3, birdheight, matrix.Color333(7, 7, 0));//Draws the bird to the screen
 if (buttonState1 != lastButtonState) {
-// if the state has changed, increment the counter
-if (buttonState1 == HIGH) {
-// if the current state is HIGH then the button went from off to on:
-Serial.println("on");
-Serial.println("birdheight is" + (String) birdheight);
-if(birdheight>=1){
-  birdheight--;
-}
-}
-// Delay a little bit to avoid bouncing
+ if (buttonState1 == HIGH) {
+  if(birdheight>=1){//Makes the bird move down on the screen if the left button is pressed and makes sure that the bird can't go below the screen
+   birdheight--;
+  }
+ }
 }
 if (buttonState2 != lastButtonState2) {
-// if the state has changed, increment the counter
-if (buttonState2 == HIGH) {
-// if the current state is HIGH then the button went from off to on:
-Serial.println("on");
-Serial.println("birdheight is" + (String) birdheight);
-if(birdheight<=14){
-  birdheight++;
+ if (buttonState2 == HIGH) {
+  if(birdheight<=14){//Makes the bird move up on the screen if the right button is pressed and makes sure that the bird can't go above the screen
+   birdheight++;
+  }
 }
-}
-// Delay a little bit to avoid bouncing
 }
 if(pipe1delay==0){
-Serial.println("pipe1height" + (String)pipe1height);
- Serial.println("birdheight"+ (String) birdheight);
-matrix.drawRect(27-deincrementer1, pipe1height, 5, 16-pipe1height, matrix.Color333(0, 7, 0));//For the first pipe
-if(27-deincrementer1==4 && birdheight>=pipe1height){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
+matrix.drawRect(27-deincrementer1, pipe1height, 5, 16-pipe1height, matrix.Color333(0, 7, 0));//Draws the pipe that runs through the bottom of the screen
+if(27-deincrementer1==4 && birdheight>=pipe1height){//These different if statements represent the different triggers that end the game
   x++;
 }
 if(27-deincrementer1==4 && birdheight==15 && pipe1height==16){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
   x++;
 }
 if(27-deincrementer1==3 && birdheight==15 && pipe1height==16){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
   x++;
 }
 if(27-deincrementer1==2 && birdheight==15 && pipe1height==16){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
   x++;
 }
 if(27-deincrementer1==1 && birdheight==15 && pipe1height==16){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
   x++;
 }
 if(27-deincrementer1==0 && birdheight==15 && pipe1height==16){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
   x++;
 }
 if(27-deincrementer1==3 && birdheight>=pipe1height){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
   x++;
 }
 if(27-deincrementer1==2 && birdheight>=pipe1height){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
   x++;
 }
 if(27-deincrementer1==1 && birdheight>=pipe1height){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
   x++;
 }
 if(27-deincrementer1==0 && birdheight>=pipe1height){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
   x++;
 }
-
-
 y++;
 deincrementer1++;
 }
 if(deincrementer1>28){
-ScoreBoard++;
-if(birdheight==pipe1height){
- Serial.println("Triggered in deincrementer1" + pipe1height);
- Serial.println("Triggered in deincrementer1"+birdheight);
-  x++;
+ ScoreBoard++;//If the player passes one of the bottom pipes they gain a point.
+if(birdheight==pipe1height){//One of the hitbox detections that ends the game if hit
+ x++;
 }
 y++;
 deincrementer1=0;
@@ -251,53 +192,42 @@ pipe1height= random(pipe2height+3,18);
 pipe1delay = random(3,20);
 }
 if(pipe2delay==0){
-matrix.drawRect(27-deincrementer2, 0, 5, pipe2height, matrix.Color333(0, 7, 0));//For the second pipe
-if(27-deincrementer2==4 && birdheight<pipe2height){
- Serial.println("Triggered in pipe2delay" + (String)pipe2height);
- Serial.println("Triggered in pipe2delay"+(String)birdheight);
+ matrix.drawRect(27-deincrementer2, 0, 5, pipe2height, matrix.Color333(0, 7, 0));//Draws the second pipe into the game.
+ if(27-deincrementer2==4 && birdheight<pipe2height){//Different hitbox detections for if the bird hits the pipe.
   x++;
-}
-if(27-deincrementer2==3 && birdheight<pipe2height){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
+ }
+ if(27-deincrementer2==3 && birdheight<pipe2height){
   x++;
-}
-if(27-deincrementer2==2 && birdheight<pipe2height){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
+ }
+ if(27-deincrementer2==2 && birdheight<pipe2height){
   x++;
-}
-if(27-deincrementer2==1 && birdheight<pipe2height){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
+ }
+ if(27-deincrementer2==1 && birdheight<pipe2height){
   x++;
-}
-if(27-deincrementer2==0 && birdheight<pipe2height){
- Serial.println("Triggered in pipe1delay" + (String)pipe1height);
- Serial.println("Triggered in pipe1delay"+ (String) birdheight);
+ }
+ if(27-deincrementer2==0 && birdheight<pipe2height){
   x++;
+ }
+ y++;
+ deincrementer2++;
 }
-y++;
-deincrementer2++;
+if(deincrementer2>28){//Checks if pipe2 has reached the end of the screen and if so generated a random height and delay amount for the next pipe to come in
+ if(birdheight<pipe2height){//Hitbox detections when the pipe reaches the end of the screen
+  x++;
+ }
+ y++;
+ deincrementer2=0;
+ pipe2height= random(2,pipe1height-2);
+ pipe2delay = random(3,20);
 }
-if(deincrementer2>28){
-if(birdheight<pipe2height){
-     Serial.println("WILD WILD" + pipe1height);
-     Serial.println("Triggered in deincrementer2"+birdheight);
-     x++;
-}
-y++;
-deincrementer2=0;
-pipe2height= random(2,pipe1height-2);
-pipe2delay = random(3,20);
-}
-if(pipe1delay!=0){
+ 
+if(pipe1delay!=0){//Registers the delay and deincrements until pipe1delay reaches 0 meaning that a new pipe can be printed
 pipe1delay--;
 }
-if(pipe2delay!=0){
+if(pipe2delay!=0){//Registers the delay and deincrements until pipe2delay reaches 0 meaning that a new pipe can be printed
 pipe2delay--;
 }
-if(y<60){
+if(y<60){//Variables used to speed up the game as you get further and further
 delay(100);
 }
 else if(y<100){
@@ -317,11 +247,9 @@ delay(30);
 }
 matrix.fillScreen(matrix.Color333(0, 0, 0));
 }
-// draw some text!
-matrix.setCursor(6, 5);  // start at top left, with one pixel of spacing
-matrix.setTextSize(1);   // size 1 == 8 pixels high
-// print each letter with a rainbow color
-matrix.setTextColor(matrix.Color333(7,0,0));
+matrix.setCursor(6, 5);
+matrix.setTextSize(1);   
+matrix.setTextColor(matrix.Color333(7,0,0));//Prints out that the game has been lost
 matrix.print('H');
 matrix.setTextColor(matrix.Color333(7,0,0));
 matrix.print('I');
@@ -330,13 +258,10 @@ matrix.print('T');
 matrix.setTextColor(matrix.Color333(7,0,0));
 matrix.print('!');
 delay(2000);
-// fill the screen with black
 matrix.fillScreen(matrix.Color333(0, 0, 0));
-// draw some text!
-matrix.setCursor(1, 0);  // start at top left, with one pixel of spacing
-matrix.setTextSize(1);   // size 1 == 8 pixels high
-// print each letter with a rainbow color
-matrix.setTextColor(matrix.Color333(7,7,7));
+matrix.setCursor(1, 0); 
+matrix.setTextSize(1);  
+matrix.setTextColor(matrix.Color333(7,7,7));//Prints out the game over screen
 matrix.print('G');
 matrix.setTextColor(matrix.Color333(7,7,7));
 matrix.print('A');
@@ -356,10 +281,9 @@ matrix.print('R');
 matrix.setTextColor(matrix.Color333(7,7,7));
 delay(1000);
 matrix.fillScreen(matrix.Color333(0, 0, 0));
-matrix.setCursor(1, 0);  // start at top left, with one pixel of spacing
-matrix.setTextSize(1);   // size 1 == 8 pixels high
-// print each letter with a rainbow color
-matrix.setTextColor(matrix.Color333(7,0,7));
+matrix.setCursor(1, 0); 
+matrix.setTextSize(1);   
+matrix.setTextColor(matrix.Color333(7,0,7));//Prints out the user's score
 matrix.print('S');
 matrix.setTextColor(matrix.Color333(7,0,7));
 matrix.print('C');
@@ -388,14 +312,12 @@ matrix.setTextSize(1);   // size 1 == 8 pixels high
 // print each letter with a rainbow color
 matrix.setTextColor(matrix.Color333(7,0,7));
 String score= (String)ScoreBoard;
-Serial.println("THE SCORE IS: " + (String)ScoreBoard);
-char first=' ';
+char first=' ';//Changes the score count into different characters that can then be printed out using the LED Display's library
 char second=' ';
 char third=' ';
 char fourth=' ';
 char fifth=' ';
 char sixth=' ';
-Serial.println("THE SCORE IS: " + (String) score.length());
 for(int i =0; i<score.length(); i++){
 if(i==0){
   first=score.charAt(i);
@@ -417,10 +339,9 @@ if(i==5){
 }
 }
 matrix.fillScreen(matrix.Color333(0, 0, 0));
-matrix.setCursor(5, 5);  // start at top left, with one pixel of spacing
-matrix.setTextSize(1);   // size 1 == 8 pixels high
-// print each letter with a rainbow color
-matrix.setTextColor(matrix.Color333(7,0,7));
+matrix.setCursor(5, 5);  
+matrix.setTextSize(1);   
+matrix.setTextColor(matrix.Color333(7,0,7));//Prints out the users score
 if(first!=' '){
 matrix.print(first);
 }
@@ -446,10 +367,9 @@ matrix.print(sixth);
 }
 delay(2000);
 matrix.fillScreen(matrix.Color333(0, 0, 0));
-matrix.setCursor(1, 0);  // start at top left, with one pixel of spacing
-matrix.setTextSize(1);   // size 1 == 8 pixels high
-// print each letter with a rainbow color
-matrix.setTextColor(matrix.Color333(7,7,7));
+matrix.setCursor(1, 0); 
+matrix.setTextSize(1);   
+matrix.setTextColor(matrix.Color333(7,7,7));//Prints out the high score
 matrix.print('H');
 matrix.setTextColor(matrix.Color333(7,7,7));
 matrix.print('I');
@@ -470,7 +390,7 @@ matrix.setTextColor(matrix.Color333(7,7,7));
 matrix.print('E');
 delay(1000);
 
-if(ScoreBoard>highscore){
+if(ScoreBoard>highscore){//Checks whether the high score needs to be changed
   highscore=ScoreBoard;
 }
 ScoreBoard=0;
@@ -481,8 +401,7 @@ third=' ';
 fourth=' ';
 fifth=' ';
 sixth=' ';
-Serial.println("THE SCORE IS: " + (String) score.length());
-for(int i =0; i<score.length(); i++){
+for(int i =0; i<score.length(); i++){//Assigns the high score numbers
 if(i==0){
   first=score.charAt(i);
 }
@@ -503,11 +422,10 @@ if(i==5){
 }
 }
 matrix.fillScreen(matrix.Color333(0, 0, 0));
-matrix.setCursor(5, 5);  // start at top left, with one pixel of spacing
-matrix.setTextSize(1);   // size 1 == 8 pixels high
-// print each letter with a rainbow color
+matrix.setCursor(5, 5); 
+matrix.setTextSize(1);  
 matrix.setTextColor(matrix.Color333(7,7,7));
-if(first!=' '){
+if(first!=' '){//Prints out the high score to the display
 matrix.print(first);
 }
 matrix.setTextColor(matrix.Color333(7,7,7));
@@ -533,10 +451,8 @@ matrix.print(sixth);
 
 delay(2000);
 matrix.fillScreen(matrix.Color333(0, 0, 0));
-matrix.setCursor(1, 0);  // start at top left, with one pixel of spacing
-matrix.setTextSize(1);   // size 1 == 8 pixels high
-// print each letter with a rainbow color
-matrix.setTextColor(matrix.Color333(7,7,7));
+matrix.setCursor(1, 0); 
+matrix.setTextColor(matrix.Color333(7,7,7));//Asks the play to play again
 matrix.print('P');
 matrix.setTextColor(matrix.Color333(7,7,7));
 matrix.print('L');
@@ -556,9 +472,8 @@ matrix.print('I');
 matrix.setTextColor(matrix.Color333(7,7,7));
 matrix.print('N');
 delay(2000);
-count++;
+count++;//Loops back to the intro
 }
 }
 void loop() {
-// Do nothing -- image doesn't change
 }
