@@ -1,4 +1,3 @@
-#LuckyBird
 CODE CREATED BY: Samir Sanchez Tejada and Julia Dudlak
 
 Original C++ FlappyBird clone game designed for Arduino's that are connected to an external LED matrix display.
